@@ -315,7 +315,7 @@ impl<T, const N: usize> AtomicTagPtr<T, N> {
     /// ```
     #[inline]
     pub fn fetch_sub(&self, value: usize, order: Ordering) -> TagPtr<T, N> {
-        debug_assert!(value < Self::TAG_MASK, "`value` exceeds tag bits (would underflow)");
+        debug_assert!(value <= Self::TAG_MASK, "`value` exceeds tag bits (would underflow)");
         TagPtr::from_usize(self.inner.fetch_sub(value, order))
     }
 
