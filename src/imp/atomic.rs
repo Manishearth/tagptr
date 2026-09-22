@@ -269,7 +269,7 @@ impl<T, const N: usize> AtomicTagPtr<T, N> {
     /// ```
     #[inline]
     pub fn fetch_add(&self, value: usize, order: Ordering) -> TagPtr<T, N> {
-        debug_assert!(value < Self::TAG_MASK, "`value` exceeds tag bits (would overflow)");
+        debug_assert!(value <= Self::TAG_MASK, "`value` exceeds tag bits (would overflow)");
         TagPtr::from_usize(self.inner.fetch_add(value, order))
     }
 
